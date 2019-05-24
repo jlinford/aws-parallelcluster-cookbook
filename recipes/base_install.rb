@@ -227,6 +227,15 @@ cookbook_file "ami_cleanup.sh" do
   mode "0755"
 end
 
+# Make cluster management commands available at /usr/local/bin if not already
+mgmt_cmds = ['echo_supervisord_conf', 'jobwatcher', 'nodewatcher', 'sqswatcher', 'supervisorctl', 'supervisord']
+mgmt_cmds.each do |cmd_file|
+  link "/usr/bin/#{cmd_file}" do
+    to "/usr/local/bin/#{cmd_file}"
+    not_if "test -f /usr/local/bin/#{cmd_file}"
+  end
+end
+
 # Install Ganglia
 include_recipe "aws-parallelcluster::_ganglia_install"
 

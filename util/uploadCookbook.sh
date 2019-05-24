@@ -89,7 +89,7 @@ main() {
     git archive --format tar --prefix="aws-parallelcluster-cookbook-${_version}/" "${_stashName:-HEAD}" | gzip > "${_cwd}/aws-parallelcluster-cookbook-${_version}.tgz"
     #tar zcvf "${_cwd}/aws-parallelcluster-cookbook-${_version}.tgz" --transform "s,^aws-parallelcluster-cookbook/,aws-parallelcluster-cookbook-${_version}/," ../aws-parallelcluster-cookbook
     popd > /dev/null
-    md5sum aws-parallelcluster-cookbook-${_version}.tgz > aws-parallelcluster-cookbook-${_version}.md5
+    md5 -q aws-parallelcluster-cookbook-${_version}.tgz > aws-parallelcluster-cookbook-${_version}.md5
 
     # upload packages
     aws ${_profile} --region "${_region}" s3 cp --acl public-read aws-parallelcluster-cookbook-${_version}.tgz s3://${_bucket}/cookbooks/aws-parallelcluster-cookbook-${_version}.tgz || _error_exit 'Failed to push cookbook to S3'
