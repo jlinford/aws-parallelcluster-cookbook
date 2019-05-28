@@ -13,10 +13,10 @@
 # OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Restart supervisord
+# Start supervisord
 service "supervisord" do
-  supports restart: true
-  action %i[enable start]
+  supports :restart => true
+  action [ :enable, :start ]
 end
 
 execute "compute_ready" do

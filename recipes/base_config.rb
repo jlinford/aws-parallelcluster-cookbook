@@ -58,3 +58,10 @@ if node['platform'] == 'centos' or node['platform'] == 'amazon'
   # Mount FSx
   include_recipe 'aws-parallelcluster::fsx_mount'
 end
+
+# Restart supervisord
+service "supervisord" do
+  supports :restart => true
+  action [ :enable, :restart ]
+end
+
